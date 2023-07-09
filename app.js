@@ -100,8 +100,8 @@ const makeChart = (games, targetTeam) => {
 
 const isWinner = ({homeTeam, awayTeam}, targetTeam) => {
     // Find the correct team, home team or away team.
-    const target = homeTeam.team === targetTeam ? homeTeam : awayTeam;
-    return target.isWinner;
+    const targetWinningTeam = homeTeam.team === targetTeam ? homeTeam : awayTeam;
+    return targetWinningTeam.isWinner;
 }
 
 const getBasketballScores = ({homeTeam, awayTeam}) => {
@@ -119,6 +119,14 @@ const getBasketballScores = ({homeTeam, awayTeam}) => {
     return `${teamNames} ${basketballScores}`
 }
 
+// Grabs the section id off the HTML document
+const goldenStateSection = document.querySelector('#gs');
+const houstonRocketSection = document.querySelector('#hr')
+
+// creates charts with each respective team
 const chart1 = makeChart(warriorsGames, 'Golden State');
-// Need to append the ulParent to the document
-document.body.prepend(chart1);
+const chart2 = makeChart(warriorsGames, 'Houston');
+
+// appends chart child to each section
+goldenStateSection.appendChild(chart1);
+houstonRocketSection.appendChild(chart2);
