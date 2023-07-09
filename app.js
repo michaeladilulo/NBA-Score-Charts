@@ -87,10 +87,12 @@ const warriorsGames = [{
 const ulParent = document.createElement('ul');
 for(let game of warriorsGames) {
     const {homeTeam, awayTeam} = game;
+    const {team:hTeam, points:hPoints} = homeTeam;
+    const {team:aTeam, points:aPoints} = awayTeam;
 
     const gameLi = document.createElement('li');
-    const teamNames = `${awayTeam.team} @ ${homeTeam.team}`
-    const basketballScores = `${awayTeam.points} - ${homeTeam.points};`
+    const teamNames = `${aTeam} @ ${hTeam}`
+    const basketballScores = `${aPoints} - ${hPoints}`
 
     // combining the teams and points together
     gameLi.innerText = `${teamNames} ${basketballScores}`
