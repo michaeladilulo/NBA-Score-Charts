@@ -97,11 +97,12 @@ for(let game of warriorsGames) {
 
     if(aPoints > hPoints) {
         basketballScores = `<b>${aPoints}</b> - ${hPoints}`
-        gameLi.classList.add('loss')
     } else {
         basketballScores = `${aPoints} - <b>${hPoints}</b>`
-        gameLi.classList.add('win')
     }
+
+    const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
+    gameLi.classList.add(warriors.isWinner ? 'win' : 'loss')
 
     // combining the teams and points together
     gameLi.innerHTML = `${teamNames} ${basketballScores}`
