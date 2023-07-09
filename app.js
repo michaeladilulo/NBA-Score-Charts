@@ -84,19 +84,24 @@ const warriorsGames = [{
   }
 ]
 
-const makeChart = (games) => {
+const makeChart = (games, targetTeam) => {
     const ulParent = document.createElement('ul');
     
     for(let game of games) {
         const gameLi = document.createElement('li');
         gameLi.innerHTML = getBasketballScores(game)
-    
-        // const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
-        // gameLi.classList.add(warriors.isWinner ? 'win' : 'loss')
+
+        gameLi.classList.add(isWinner(game, targetTeam) ? 'win' : 'loss')
     
         ulParent.appendChild(gameLi)
     }
     return ulParent;
+}
+
+const isWinner = ({homeTeam, awayTeam}, targetTeam) => {
+    // Find the correct team, home team or away team.
+    const target = homeTeam.team === targetTeam ? homeTeam : awayTeam;
+    return target.isWinner;
 }
 
 const getBasketballScores = ({homeTeam, awayTeam}) => {
@@ -114,6 +119,6 @@ const getBasketballScores = ({homeTeam, awayTeam}) => {
     return `${teamNames} ${basketballScores}`
 }
 
-const chart1 = makeChart(warriorsGames);
+const chart1 = makeChart(warriorsGames, 'Golden State');
 // Need to append the ulParent to the document
 document.body.prepend(chart1);
