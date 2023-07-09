@@ -92,10 +92,17 @@ for(let game of warriorsGames) {
 
     const gameLi = document.createElement('li');
     const teamNames = `${aTeam} @ ${hTeam}`
-    const basketballScores = `${aPoints} - ${hPoints}`
+
+    let basketballScores;
+
+    if(aPoints > hPoints) {
+        basketballScores = `<b>${aPoints}</b> - ${hPoints}`
+    } else {
+        basketballScores = `${aPoints} - <b>${hPoints}</b>`
+    }
 
     // combining the teams and points together
-    gameLi.innerText = `${teamNames} ${basketballScores}`
+    gameLi.innerHTML = `${teamNames} ${basketballScores}`
 
     ulParent.appendChild(gameLi)
 
