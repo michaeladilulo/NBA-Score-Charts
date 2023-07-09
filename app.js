@@ -84,31 +84,36 @@ const warriorsGames = [{
   }
 ]
 
-const ulParent = document.createElement('ul');
-for(let game of warriorsGames) {
-    const {homeTeam, awayTeam} = game;
-    const {team:hTeam, points:hPoints} = homeTeam;
-    const {team:aTeam, points:aPoints} = awayTeam;
+const makeChart = (games) => {
 
-    const gameLi = document.createElement('li');
-    const teamNames = `${aTeam} @ ${hTeam}`
-
-    let basketballScores;
-
-    if(aPoints > hPoints) {
-        basketballScores = `<b>${aPoints}</b> - ${hPoints}`
-    } else {
-        basketballScores = `${aPoints} - <b>${hPoints}</b>`
+    const ulParent = document.createElement('ul');
+    for(let game of games) {
+        const {homeTeam, awayTeam} = game;
+        const {team:hTeam, points:hPoints} = homeTeam;
+        const {team:aTeam, points:aPoints} = awayTeam;
+    
+        const gameLi = document.createElement('li');
+        const teamNames = `${aTeam} @ ${hTeam}`
+    
+        let basketballScores;
+    
+        if(aPoints > hPoints) {
+            basketballScores = `<b>${aPoints}</b> - ${hPoints}`
+        } else {
+            basketballScores = `${aPoints} - <b>${hPoints}</b>`
+        }
+    
+        const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
+        gameLi.classList.add(warriors.isWinner ? 'win' : 'loss')
+    
+        // combining the teams and points together
+        gameLi.innerHTML = `${teamNames} ${basketballScores}`
+    
+        ulParent.appendChild(gameLi)
     }
-
-    const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
-    gameLi.classList.add(warriors.isWinner ? 'win' : 'loss')
-
-    // combining the teams and points together
-    gameLi.innerHTML = `${teamNames} ${basketballScores}`
-
-    ulParent.appendChild(gameLi)
-
-    // Need to append the ulParent to the document
-    document.body.prepend(ulParent);
+    return ulParent;
 }
+
+const chart1 = makeChart(warriorsGames);
+// Need to append the ulParent to the document
+document.body.prepend(chart1);
