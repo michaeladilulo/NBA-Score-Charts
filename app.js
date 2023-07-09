@@ -85,33 +85,33 @@ const warriorsGames = [{
 ]
 
 const makeChart = (games) => {
-
     const ulParent = document.createElement('ul');
+    
     for(let game of games) {
-        const {homeTeam, awayTeam} = game;
-        const {team:hTeam, points:hPoints} = homeTeam;
-        const {team:aTeam, points:aPoints} = awayTeam;
-    
         const gameLi = document.createElement('li');
-        const teamNames = `${aTeam} @ ${hTeam}`
+        gameLi.innerHTML = getBasketballScores(game)
     
-        let basketballScores;
-    
-        if(aPoints > hPoints) {
-            basketballScores = `<b>${aPoints}</b> - ${hPoints}`
-        } else {
-            basketballScores = `${aPoints} - <b>${hPoints}</b>`
-        }
-    
-        const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
-        gameLi.classList.add(warriors.isWinner ? 'win' : 'loss')
-    
-        // combining the teams and points together
-        gameLi.innerHTML = `${teamNames} ${basketballScores}`
+        // const warriors = hTeam === 'Golden State' ? homeTeam : awayTeam;
+        // gameLi.classList.add(warriors.isWinner ? 'win' : 'loss')
     
         ulParent.appendChild(gameLi)
     }
     return ulParent;
+}
+
+const getBasketballScores = ({homeTeam, awayTeam}) => {
+    const {team:hTeam, points:hPoints} = homeTeam;
+    const {team:aTeam, points:aPoints} = awayTeam;
+    const teamNames = `${aTeam} @ ${hTeam}`
+
+    let basketballScores;
+
+    if(aPoints > hPoints) {
+        basketballScores = `<b>${aPoints}</b> - ${hPoints}`
+    } else {
+        basketballScores = `${aPoints} - <b>${hPoints}</b>`
+    }
+    return `${teamNames} ${basketballScores}`
 }
 
 const chart1 = makeChart(warriorsGames);
